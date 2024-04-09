@@ -4,6 +4,7 @@ import com.example.SaigunasBirbalas.model.Client;
 import com.example.SaigunasBirbalas.model.TrainingGroup;
 import com.example.SaigunasBirbalas.repository.ClientRepository;
 import com.example.SaigunasBirbalas.repository.TrainingGroupRepository;
+import com.example.SaigunasBirbalas.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,9 +25,11 @@ public class ClientController {
     @Autowired
     public TrainingGroupRepository trainingGroupRepository;
 
+    @Autowired
+    ClientService clientService;
     @GetMapping("/clients")
     public String clients(Model model) {
-        List<Client> clients = clientRepository.findAll();
+        List<Client> clients = clientService.getClients();
         model.addAttribute("clients", clients);
         return "clients_list";
     }
