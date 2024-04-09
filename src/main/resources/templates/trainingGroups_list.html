@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:insert="fragments/nav.html :: nav"></div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <a href="/new" class="btn btn-info mb-3">Pridėti naują grupę</a>
+            <div class="card">
+                <div class="card-header">Grupės</div>
+                <div class="card-body">
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Pavadinimas</th>
+                            <th>Klientai</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="trainingGroup: ${trainingGroups}">
+                                <td th:text="${trainingGroup.name}"></td><td>
+                                    <ol >
+                                        <li th:each="client: ${trainingGroup.clients}"><span th:text="${client.name}+' '+${client.surname}"></span> </li>
+                                    </ol>
+                                </td>
+                                <td style="width: 200px;">
+                                    <a th:href="'/update/'+${trainingGroup.id}" class="btn btn-success">Redaguoti</a>
+                                    <a th:href="'/delete/'+${trainingGroup.id}" class="btn btn-danger">Ištrinti</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>
