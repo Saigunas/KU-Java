@@ -13,13 +13,26 @@
             <div class="card">
                 <div class="card-header">Grupės</div>
                 <div class="card-body">
-                  <form method="post" action="/new" enctype="multipart/form-data">
+                  <form method="post" th:action="'/workouts/update/'+${workout.id}">
                       <div class="mb-3">
                           <label class="form-label">Pavadinimas</label>
-                          <input type="text" class="form-control" name="name">
+                          <input type="text" class="form-control" name="name" th:value="${workout.name}">
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Data</label>
+                          <input type="date" class="form-control" name="date" th:value="${workout.date}">
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Vietų skaičius</label>
+                          <input type="number" class="form-control" name="places" th:value="${workout.places}">
+                      </div>
+                      <div class="mb-3">
+                          <label class="form-label">Vieta</label>
+                          <input type="text" class="form-control" name="location" th:value="${workout.location}">
                       </div>
 
-                      <button class="btn btn-success">Pridėti</button>
+                      <button class="btn btn-success">Išsaugoti</button>
+
                   </form>
 
                 </div>

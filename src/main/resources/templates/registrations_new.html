@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+<div th:insert="fragments/nav.html :: nav"></div>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Registruoti grupės dalyvį</div>
+                <div class="card-body">
+                    <form method="post" action="/registrations/new" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label class="form-label">Grupė</label>
+                            <select class="form-select" name="workout_id">
+                                <option disabled selected value> -- select an option -- </option>
+                                <option th:each="workoutWithAvailablePlaces: ${workoutsWithAvailablePlaces}"
+                                        th:selected="${workoutWithAvailablePlaces.availablePlaces != 0 &amp;&amp; workoutWithAvailablePlaces.workout.id == currentWorkout.id}"                                        th:value="${workoutWithAvailablePlaces.workout.id}"
+                                        th:text="${workoutWithAvailablePlaces.workout.name} + ', Places available (' + ${workoutWithAvailablePlaces.availablePlaces} + ')'"
+                                        th:disabled="${workoutWithAvailablePlaces.availablePlaces} == 0"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Klientas</label>
+                            <select class="form-select" name="client_id">
+                                <option th:each="client: ${clients}" th:value="${client.id}" th:text="${client.name} + ' ' + ${client.surname} + ', ' + ${client.email}" ></option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-success">Pridėti</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

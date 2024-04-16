@@ -3,6 +3,8 @@ package com.example.SaigunasBirbalas.service;
 
 import com.example.SaigunasBirbalas.model.Client;
 import com.example.SaigunasBirbalas.repository.ClientRepository;
+import com.example.SaigunasBirbalas.repository.RegistrationRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;

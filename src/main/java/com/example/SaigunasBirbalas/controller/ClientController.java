@@ -1,9 +1,8 @@
 package com.example.SaigunasBirbalas.controller;
 
 import com.example.SaigunasBirbalas.model.Client;
-import com.example.SaigunasBirbalas.model.TrainingGroup;
+import com.example.SaigunasBirbalas.model.Workout;
 import com.example.SaigunasBirbalas.repository.ClientRepository;
-import com.example.SaigunasBirbalas.repository.TrainingGroupRepository;
 import com.example.SaigunasBirbalas.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,9 +19,6 @@ import java.util.Optional;
 public class ClientController {
     @Autowired
     public ClientRepository clientRepository;
-
-    @Autowired
-    public TrainingGroupRepository trainingGroupRepository;
 
     @Autowired
     ClientService clientService;
@@ -36,9 +31,6 @@ public class ClientController {
 
     @GetMapping("/clients/new")
     public String newClient(Model model){
-        List<TrainingGroup> groups=trainingGroupRepository.findAll();
-        model.addAttribute("trainingGroups",groups);
-
         return "client_new";
     }
 
@@ -47,25 +39,20 @@ public class ClientController {
             @RequestParam("name") String name,
             @RequestParam("surname") String surname,
             @RequestParam("email") String email,
-            @RequestParam("phone") String phone,
-            @RequestParam("training_group_id") Integer trainingGroupId
+            @RequestParam("phone") String phone
     ){
-        TrainingGroup g = trainingGroupRepository.getReferenceById(trainingGroupId);
-        Client c = new Client(name, surname, email, phone, g);
+        Client c = new Client(name, surname, email, phone);
         clientRepository.save(c);
 
         return "redirect:/clients";
     }
 
 
-    @GetMapping("clients/update/{id}")
+    @GetMapping("/clients/update/{id}")
     public String update(
             @PathVariable("id") Integer id,
             Model model
     ){
-        List<TrainingGroup> groups=trainingGroupRepository.findAll();
-        model.addAttribute("trainingGroups",groups);
-
         Optional<Client> c=clientRepository.findById(id);
 
         if (c.isPresent()) {
@@ -84,22 +71,19 @@ public class ClientController {
             @RequestParam("name") String name,
             @RequestParam("surname") String surname,
             @RequestParam("email") String email,
-            @RequestParam("phone") String phone,
-            @RequestParam("training_group_id") Integer trainingGroupId
+            @RequestParam("phone") String phone
     ){
         Client c=clientRepository.getReferenceById(id);
-        TrainingGroup g = trainingGroupRepository.getReferenceById(trainingGroupId);
         c.setName(name);
         c.setSurname(surname);
         c.setEmail(email);
         c.setPhone(phone);
-        c.setTrainingGroup(g);
         clientRepository.save(c);
 
         return "redirect:/clients";
     }
 
-    @GetMapping("clients/delete/{id}")
+    @GetMapping("/clients/delete/{id}")
     public String delete(
             @PathVariable("id") Integer id
     ){

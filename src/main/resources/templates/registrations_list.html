@@ -11,34 +11,33 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-12">
-            <a href="/clients/new" class="btn btn-info mb-3">Pridėti naują klientą</a>
+            <a th:href="'/workouts/registration/new/' + ${workout.id}" class="btn btn-info mb-3">Registruoti klientą</a>
             <div class="card">
-                <div class="card-header">Klientai</div>
+                <div class="card-header" th:inline="text">Sporto Grupės '[[${workout.name}]]' Registracijos</div>
                 <div class="card-body">
-
                     <table class="table">
                         <thead>
                         <tr>
                             <th>Vardas</th>
-                            <th>Pavardė</th>
-                            <th>El. pašto adresas</th>
-                            <th>Telefonas</th>
-                            <th></th>
+                            <th>Pavarde</th>
+                            <th>El. pastas</th>
+                            <th>Registracijos data</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="client: ${clients}">
-                            <td th:text="${client.name}"></td>
-                            <td th:text="${client.surname}"></td>
-                            <td th:text="${client.email}"></td>
-                            <td th:text="${client.phone}"></td>
-                            <td style="width: 300px;">
-                                <a th:href="'/clients/update/'+${client.id}" class="btn btn-success">Redaguoti</a>
-                                <a th:href="'/clients/delete/'+${client.id}" class="btn btn-danger">Ištrinti</a>
-                            </td>
-                        </tr>
+                            <tr th:each="registration: ${workout.registrations}">
+                                <td th:text="${registration.client.name}"></td>
+                                <td th:text="${registration.client.surname}"></td>
+                                <td th:text="${registration.client.email}"></td>
+                                <td th:text="${registration.registrationDate}"></td>
+                                <td style="width: 400px;">
+                                    <a th:href="'/registrations/delete/'+${registration.id}" class="btn btn-danger">Ištrinti</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+
+
                 </div>
             </div>
         </div>

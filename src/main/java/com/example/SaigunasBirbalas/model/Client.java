@@ -2,9 +2,12 @@ package com.example.SaigunasBirbalas.model;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "clients")
@@ -27,27 +30,25 @@ public class Client {
     @Column(length = 128, nullable = true)
     private String phone;
 
-    @ManyToOne
-    @JoinColumn(name="training_group_id")
-    private TrainingGroup trainingGroup;
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    List<Registration> registrations;
 
-    public TrainingGroup getTrainingGroup() {
-        return trainingGroup;
-    }
-
-    public void setTrainingGroup(TrainingGroup trainingGroup) {
-        this.trainingGroup = trainingGroup;
-    }
-
-    public Client(String name, String surname, String email, String phone, TrainingGroup trainingGroup) {
+    public Client(String name, String surname, String email, String phone) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
-        this.trainingGroup = trainingGroup;
     }
 
     public Client() {
+    }
+
+    public List<Registration> getRegistrations() {
+        return registrations;
+    }
+
+    public void setRegistrations(List<Registration> registrations) {
+        this.registrations = registrations;
     }
 
     public String getName() {

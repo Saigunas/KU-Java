@@ -20,20 +20,21 @@
                         <thead>
                         <tr>
                             <th>Pavadinimas</th>
-                            <th>Klientai</th>
-                            <th></th>
+                            <th>Data</th>
+                            <th>Vietų skaičius</th>
+                            <th>Vieta</th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="trainingGroup: ${trainingGroups}">
-                                <td th:text="${trainingGroup.name}"></td><td>
-                                    <ol >
-                                        <li th:each="client: ${trainingGroup.clients}"><span th:text="${client.name}+' '+${client.surname}"></span> </li>
-                                    </ol>
-                                </td>
-                                <td style="width: 200px;">
-                                    <a th:href="'/update/'+${trainingGroup.id}" class="btn btn-success">Redaguoti</a>
-                                    <a th:href="'/delete/'+${trainingGroup.id}" class="btn btn-danger">Ištrinti</a>
+                            <tr th:each="workout: ${workouts}">
+                                <td th:text="${workout.name}"></td>
+                                <td th:text="${workout.date}"></td>
+                                <td th:text="${workout.places}"></td>
+                                <td th:text="${workout.location}"></td>
+                                <td style="width: 400px;">
+                                    <a th:href="'/workouts/registrations/'+${workout.id}" class="btn btn-info">Registracijos</a>
+                                    <a th:href="'/workouts/update/'+${workout.id}" class="btn btn-success">Redaguoti</a>
+                                    <a th:href="'/workouts/delete/'+${workout.id}" class="btn btn-danger">Ištrinti</a>
                                 </td>
                             </tr>
                         </tbody>

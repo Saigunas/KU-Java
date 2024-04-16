@@ -30,16 +30,6 @@
                             <label class="form-label">Phone</label>
                             <input type="text" class="form-control" name="phone" th:value="${client.phone}">
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Grupė</label>
-                            <select class="form-select" name="training_group_id">
-                                <option th:each="trainingGroup: ${trainingGroups}"
-                                        th:value="${trainingGroup.id}"
-                                        th:text="${trainingGroup.name}"
-                                        th:selected="${client.trainingGroup != null && trainingGroup.id == client.trainingGroup.id}">
-                                </option>
-                            </select>
-                        </div>
                         <button class="btn btn-success">Save</button>
                     </form>
                 </div>

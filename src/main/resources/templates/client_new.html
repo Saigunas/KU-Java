@@ -30,12 +30,6 @@
                           <label class="form-label">Telefonas</label>
                           <input type="text" class="form-control" name="phone">
                       </div>
-                      <div class="mb-3">
-                          <label class="form-label">Grupė</label>
-                          <select class="form-select" name="training_group_id">
-                              <option th:each="trainingGroup: ${trainingGroups}" th:value="${trainingGroup.id}" th:text="${trainingGroup.name}" ></option>
-                          </select>
-                      </div>
 
                       <button class="btn btn-success">Pridėti</button>
 
