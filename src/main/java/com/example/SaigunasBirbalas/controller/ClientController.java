@@ -4,13 +4,13 @@ import com.example.SaigunasBirbalas.model.Client;
 import com.example.SaigunasBirbalas.model.Workout;
 import com.example.SaigunasBirbalas.repository.ClientRepository;
 import com.example.SaigunasBirbalas.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,17 +31,21 @@ public class ClientController {
 
     @GetMapping("/clients/new")
     public String newClient(Model model){
+        Client c = new Client();
+        model.addAttribute("client", c);
         return "client_new";
     }
 
     @PostMapping("/clients/new")
     public String storeClient(
-            @RequestParam("name") String name,
-            @RequestParam("surname") String surname,
-            @RequestParam("email") String email,
-            @RequestParam("phone") String phone
+            @Valid Client client,
+            BindingResult bindingResult
     ){
-        Client c = new Client(name, surname, email, phone);
+        if (bindingResult.hasErrors()) {
+            // If there are validation errors, return back to the form with errors
+            return "client_new";
+        }
+        Client c = new Client(client.getName(), client.getSurname(), client.getEmail(), client.getPhone());
         clientRepository.save(c);
 
         return "redirect:/clients";
@@ -68,16 +72,18 @@ public class ClientController {
     @PostMapping("/clients/update/{id}")
     public String save(
             @PathVariable("id") Integer id,
-            @RequestParam("name") String name,
-            @RequestParam("surname") String surname,
-            @RequestParam("email") String email,
-            @RequestParam("phone") String phone
+            @Valid Client client,
+            BindingResult bindingResult
     ){
+        if (bindingResult.hasErrors()) {
+            // If there are validation errors, return back to the form with errors
+            return "client_update";
+        }
         Client c=clientRepository.getReferenceById(id);
-        c.setName(name);
-        c.setSurname(surname);
-        c.setEmail(email);
-        c.setPhone(phone);
+        c.setName(client.getName());
+        c.setSurname(client.getSurname());
+        c.setEmail(client.getEmail());
+        c.setPhone(client.getPhone());
         clientRepository.save(c);
 
         return "redirect:/clients";

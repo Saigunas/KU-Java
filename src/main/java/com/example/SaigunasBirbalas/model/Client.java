@@ -1,6 +1,10 @@
 package com.example.SaigunasBirbalas.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -17,17 +21,26 @@ public class Client {
     private Integer id;
 
     @Nationalized
-    @Column(length = Integer.MAX_VALUE)
+    @NotNull(message = "Name is required")
+    @NotBlank(message = "Name may not be blank")
+    @Size(min = 3, max = 20, message = "Name must be between 3 and 20 characters")
+    @Column(nullable = false)
     private String name;
 
     @Nationalized
-    @Column(length = Integer.MAX_VALUE)
+    @NotNull(message = "Surname is required")
+    @NotBlank(message = "Surname may not be blank")
+    @Size(min = 3, max = 25, message = "Surname must be between 3 and 25 characters")
+    @Column(nullable = false)
     private String surname;
 
-    @Column(length = 128)
+    @NotNull(message = "Email is required")
+    @NotBlank(message = "Email may not be blank")
+    @Email(message = "Invalid email address")
+    @Column(nullable = false)
     private String email;
 
-    @Column(length = 128, nullable = true)
+    @Size(max = 15, message = "Phone number must be at most 15 characters")
     private String phone;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)

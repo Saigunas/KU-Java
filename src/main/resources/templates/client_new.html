@@ -13,27 +13,30 @@
             <div class="card">
                 <div class="card-header">Pridėti naują klintą</div>
                 <div class="card-body">
-                  <form method="post" action="/clients/new" enctype="multipart/form-data">
-                      <div class="mb-3">
-                          <label class="form-label">Vardas</label>
-                          <input type="text" class="form-control" name="name">
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Pavardė</label>
-                          <input type="text" class="form-control" name="surname">
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">El. paštas</label>
-                          <input type="text" class="form-control" name="email">
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label">Telefonas</label>
-                          <input type="text" class="form-control" name="phone">
-                      </div>
+                    <form method="post" action="/clients/new" enctype="multipart/form-data" th:object="${client}">
+                        <div class="mb-3">
+                            <label class="form-label">* Vardas</label>
+                            <input type="text" class="form-control" th:field="*{name}">
+                            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">* Pavardė</label>
+                            <input type="text" class="form-control" th:field="*{surname}">
+                            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">* El. paštas</label>
+                            <input type="text" class="form-control" th:field="*{email}">
+                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefonas</label>
+                            <input type="text" class="form-control" th:field="*{phone}">
+                        </div>
 
-                      <button class="btn btn-success">Pridėti</button>
+                        <button class="btn btn-success">Pridėti</button>
+                    </form>
 
-                  </form>
 
                 </div>
             </div>
