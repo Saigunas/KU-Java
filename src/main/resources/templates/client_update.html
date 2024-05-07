@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header">Client Update</div>
                 <div class="card-body">
-                    <form method="post" th:action="'/clients/update/'+${client.id}" th:object="${client}">
+                    <form method="post" th:action="'/clients/update/'+${client.id}" th:object="${client}" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">* Vardas</label>
                             <input type="text" class="form-control" id="name" th:field="*{name}" />
@@ -33,6 +33,20 @@
                             <label class="form-label">Telefonas</label>
                             <input type="text" class="form-control" th:field="*{phone}" />
                             <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="text-danger"></span>
+                        </div>
+
+                        <!-- Check if the file exists -->
+                        <div th:if="${client.agreement != null}" class="mb-3">
+                            <!-- Display options to download or delete the file -->
+                            <a th:href="'/clients/' + ${client.id} + '/agreement'" class="btn btn-primary">Download File</a>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete the file?')" name="deleteFile">Delete File</button>
+                        </div>
+                        <div th:unless="${client.agreement != null}">
+                            <!-- Display file upload field if the file doesn't exist -->
+                            <div class="mb-3">
+                                <label class="form-label">Sutarties failas: </label>
+                                <input type="file" class="form-control" name="agreementFile">
+                            </div>
                         </div>
                         <button class="btn btn-success">Save</button>
                     </form>

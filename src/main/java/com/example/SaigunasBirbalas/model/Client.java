@@ -43,8 +43,12 @@ public class Client {
     @Size(max = 15, message = "Phone number must be at most 15 characters")
     private String phone;
 
+    @Column(length = 128, nullable = true)
+    private String agreement=null;
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     List<Registration> registrations;
+
 
     public Client(String name, String surname, String email, String phone) {
         this.name = name;
@@ -54,6 +58,14 @@ public class Client {
     }
 
     public Client() {
+    }
+
+    public String getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(String agreement) {
+        this.agreement = agreement;
     }
 
     public List<Registration> getRegistrations() {

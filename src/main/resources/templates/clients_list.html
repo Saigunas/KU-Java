@@ -35,6 +35,7 @@
                             <td style="width: 300px;">
                                 <a th:href="'/clients/update/'+${client.id}" class="btn btn-success">Redaguoti</a>
                                 <a th:href="'/clients/delete/'+${client.id}" class="btn btn-danger">Ištrinti</a>
+                                <a th:if="${client.agreement!=null}" th:href="${'/clients/'+client.id+'/agreement'}" class="btn btn-info" >Sutartis</a>
                             </td>
                         </tr>
                         </tbody>
