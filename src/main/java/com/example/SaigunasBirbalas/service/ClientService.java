@@ -20,4 +20,13 @@ public class ClientService {
     public List<Client> getClients() {
         return clientRepository.findAll();
     }
+
+    public Client findByUsername(String username) {
+        return clientRepository.findByUsername(username);
+    }
+
+    public void save(Client client) {
+        clientRepository.save(client);
+    }
+
 }
